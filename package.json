@@ -7,9 +7,9 @@
     "test": "test"
   },
    "scripts": {
-    "test": "mocha",  // Keep your current test script
-    "coverage": "nyc mocha",  // Runs tests with code coverage
-    "coverage:report": "nyc report --reporter=text-lcov | coveralls"  // Sends coverage to Coveralls
+    "test": "mocha",  
+    "coverage": "nyc mocha",  
+    "coverage:report": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
