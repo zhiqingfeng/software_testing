@@ -26,7 +26,7 @@ describe("compact.js", () => {
 
   // Test Case 4: Remove false and 0 from array
   it('should remove false and 0 values from the array', () => {
-    const input = [false, 'zero', 'Organic'];
+    const input = [false, 0, 'Organic'];
     const output = ['Organic'];
     expect(compact(input)).to.deep.equal(output);
   });
