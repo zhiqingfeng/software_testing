@@ -12,6 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",  
   "devDependencies": {
     "chai": "^5.1.2",
     "coveralls": "^3.1.1",
