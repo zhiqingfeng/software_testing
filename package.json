@@ -6,10 +6,10 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "mocha 'test/**/*.js'",   
-    "coverage": "nyc --reporter=lcov --reporter=text mocha 'test/**/*.js'",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls" 
+   "scripts": {
+    "test": "mocha",  // Keep your current test script
+    "coverage": "nyc mocha",  // Runs tests with code coverage
+    "coverage:report": "nyc report --reporter=text-lcov | coveralls"  // Sends coverage to Coveralls
   },
   "keywords": [],
   "author": "",
