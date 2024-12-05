@@ -34,4 +34,4 @@ jobs:
       - name: Report to Coveralls
         run: npm run coveralls
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN=InVv2NoJAgSVTNxr4p3gEAlZsX2XRM5Me}}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN=IHy6KWIhTYOsv0xIA1Dr6otWVud3HNEQ0}}
