@@ -13,6 +13,11 @@ import createMathOperation from './.internal/createMathOperation.js'
  * divide(6, 4)
  * // => 1.5
  */
-const divide = createMathOperation((dividend, divisor) => dividend / divisor, 1)
+const divide = createMathOperation((dividend, divisor) => {
+  if (divisor === 0) {
+    return NaN;
+ }
+  return dividend / divisor;
+}, 1);
 
 export default divide

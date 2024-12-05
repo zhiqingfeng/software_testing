@@ -16,8 +16,8 @@ function compact(array) {
   const result = []
 
   for (const value of array) {
-    if (value) {
-      result[resIndex++] = value
+    if (value !== null && value !== undefined && value !== false && value !== 0 && value.trim() !== '') {
+      result[++resIndex] = value;
     }
   }
   return result

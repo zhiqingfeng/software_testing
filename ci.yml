@@ -1,6 +1,5 @@
-name: Node.js CI with Mocha, NYC, and Coveralls
+name: CI
 
-# Trigger the workflow on push and pull request events for the "main" branch
 on:
   push:
     branches:
@@ -11,39 +10,23 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Use Ubuntu for the CI runner
-
+    runs-on: ubuntu-latest
     steps:
-      # Checkout the code from the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      # Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'  # You can change this to the version you need
+          node-version: '22.9.0'
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Run tests with Mocha and NYC (code coverage)
-      - name: Run tests and collect coverage
-        run: |
-          npm run lint    # Optional, if you have linting set up
-          npx nyc --reporter=text --reporter=lcov mocha  # Runs Mocha and collects code coverage
+      - name: Run tests with coverage
+        run: npm run coverage
 
-      # Send coverage report to Coveralls
       - name: Upload coverage to Coveralls
-        run: npx coveralls < coverage/lcov-report/lcov-report.json  # Upload coverage data to Coveralls
-
-      # Optional: You can also add a step to upload test results in a report format such as Mochawesome
-      - name: Upload Mochawesome report (optional)
-        if: success()
-        run: |
-          npm install mochawesome
-          mochawesome-merge ./mochawesome-report/*.json > merged-report.json
-          mochawesome-report-generator merged-report.json --reportDir ./mochawesome-report/
-          
+        run: npm run coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
