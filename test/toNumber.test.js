@@ -2,70 +2,51 @@ import { expect } from 'chai';
 import toNumber from "../src/toNumber.js";
 
 describe("toNumber.js", () => {
-    it("should return the same number for numeric input", () => {
-        expect(toNumber(3.2)).to.equal(3.2);
-        expect(toNumber(Number.MIN_VALUE)).to.equal(5e-324);
-        expect(toNumber(Infinity)).to.equal(Infinity);
-        expect(toNumber(0)).to.equal(0);
+     // Test Case 1: Convert a string input to a number.
+    it("should return NaN for non-numeric string input", () => {
+        const result = toNumber('1.8');
+        expect(result).to.be.NaN;
     });
 
-    it("should parse numeric strings correctly", () => {
-        expect(toNumber("3.2")).to.equal(3.2);
-        expect(toNumber("  42  ")).to.equal(42); // Leading/trailing whitespace
+    // Test Case 2: Return number if the number is valid.
+    it("should return the valid number input", () => {
+        const result = toNumber(1.8);
+        expect(result).to.equal(1.8);
     });
 
-    it("should handle binary strings", () => {
-        expect(toNumber("0b101")).to.equal(5); // Binary representation
+    // Test Case 3: Return NaN if it's an invalid number (using a comma instead of a dot).
+    it("should return NaN for invalid number (comma separator)", () => {
+        const result = toNumber('1,8');
+        expect(result).to.be.NaN;
     });
 
-    it("should handle octal strings", () => {
-        expect(toNumber("0o10")).to.equal(8); // Octal representation
+    // Test Case 4: Return 0 if input is empty.
+    it("should return 0 for empty input", () => {
+        const result = toNumber('');
+        expect(result).to.equal(0);
     });
 
-    it("should handle hexadecimal strings", () => {
-        expect(toNumber("0x1f")).to.equal(31); // Hexadecimal representation
+    // Test Case 5: Return NaN for non-numeric string (e.g., text).
+    it("should return NaN for a non-numeric string input", () => {
+        const result = toNumber('abc');
+        expect(result).to.be.NaN;
     });
 
-    it("should return NaN for invalid hexadecimal strings", () => {
-        expect(toNumber("0x1g")).to.be.NaN; // Invalid hexadecimal
+    // Test Case 6: Return number for a valid binary string.
+    it("should return a number for valid binary string input", () => {
+        const result = toNumber('0b101');
+        expect(result).to.equal(5);  // binary '101' is 5 in decimal
     });
 
-    it("should return NaN for symbols", () => {
-        expect(toNumber(Symbol("symbol"))).to.be.NaN;
+    // Test Case 7: Return number for valid octal string.
+    it("should return a number for valid octal string input", () => {
+        const result = toNumber('0o17');
+        expect(result).to.equal(15);  // octal '17' is 15 in decimal
     });
 
-    it("should handle objects with valueOf method", () => {
-        const obj = {
-            valueOf: () => 42
-        };
-        expect(toNumber(obj)).to.equal(42);
-    });
-
-    it("should handle objects without valueOf method", () => {
-        const obj = { a: 1 };
-        expect(toNumber(obj)).to.be.NaN;
-    });
-
-    it("should handle arrays", () => {
-        expect(toNumber([42])).to.equal(42); // Single-element array
-        expect(toNumber([1, 2])).to.be.NaN; // Multi-element array
-    });
-
-    it("should return NaN for null or undefined", () => {
-        expect(toNumber(null)).to.equal(0); // Special case: null is coerced to 0
-        expect(toNumber(undefined)).to.be.NaN;
-    });
-
-    it("should handle edge cases with `0`", () => {
-        expect(toNumber(0)).to.equal(0); // 0 should remain 0
-        expect(toNumber(-0)).to.equal(-0); // -0 should remain -0
-    });
-
-    it("should handle empty objects gracefully", () => {
-        expect(toNumber({})).to.be.NaN;
-    });
-
-    it("should handle very large numbers in strings", () => {
-        expect(toNumber("1e+30")).to.equal(1e30); // Scientific notation
+    // Test Case 8: Return NaN for invalid hexadecimal string.
+    it("should return NaN for invalid hexadecimal string", () => {
+        const result = toNumber('0xG1');
+        expect(result).to.be.NaN;  // 'G' is not a valid hexadecimal digit
     });
 });

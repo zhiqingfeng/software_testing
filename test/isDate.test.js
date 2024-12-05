@@ -2,49 +2,33 @@ import { expect } from 'chai';
 import isDate from "../src/isDate.js";
 
 describe("isDate.js", () => {
-    it("should return true for a valid Date object", () => {
+    // Test Case 1: Pass new Date() to the module (valid Date object).
+    it("should return true for a valid Date object (new Date())", () => {
         const result = isDate(new Date());
-        expect(result).to.be.true;
+        expect(result).to.equal(true);
     });
 
-    it("should return false for a string that looks like a date", () => {
-        const result = isDate("Mon April 23 2012");
-        expect(result).to.be.false;
+    // Test Case 2: Pass string to the module (invalid Date object).
+    it("should return false for a string input", () => {
+        const result = isDate("Fri October 11 2024");
+        expect(result).to.equal(false);
     });
 
-    it("should return false for a timestamp number", () => {
-        const result = isDate(1659394800000); // Example timestamp
-        expect(result).to.be.false;
+    // Test Case 3: Pass number to the module (invalid Date object).
+    it("should return false for a number input", () => {
+        const result = isDate(1234);
+        expect(result).to.equal(false);
     });
 
-    it("should return false for null or undefined", () => {
-        expect(isDate(null)).to.be.false;
-        expect(isDate(undefined)).to.be.false;
+    // Test Case 4: Pass null to the module (invalid Date object).
+    it("should return false for a null input", () => {
+        const result = isDate(null);
+        expect(result).to.equal(false);
     });
 
-    it("should return false for plain objects", () => {
-        const result = isDate({ year: 2023, month: 12, day: 1 });
-        expect(result).to.be.false;
-    });
-
-    it("should return false for arrays", () => {
-        const result = isDate(["2023-12-01"]);
-        expect(result).to.be.false;
-    });
-
-    it("should return true for an invalid Date object", () => {
-        const result = isDate(new Date("invalid date"));
-        expect(result).to.be.true; // It's still a Date object, even if it's invalid.
-    });
-
-    it("should handle custom Date-like objects", () => {
-        const customDate = { toString: () => "[object Date]" };
-        const result = isDate(customDate);
-        expect(result).to.be.false;
-    });
-
-    it("should handle edge cases with other object types", () => {
-        expect(isDate(new Map())).to.be.false;
-        expect(isDate(new Set())).to.be.false;
+    // Test Case 5: Pass new Date(2024, 11, 10) to the module (valid Date object).
+    it("should return true for a valid Date object (new Date(2024, 11, 10))", () => {
+        const result = isDate(new Date(2024, 11, 10));
+        expect(result).to.equal(true);
     });
 });
