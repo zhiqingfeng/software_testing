@@ -7,9 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --reporter mochawesome",
-    "coverage": "nyc --reporter=lcov --report-dir=coverage mocha test/*.test.mjs",
-    "coverage-check": "nyc --check-coverage --reporter=lcov --report-dir=coverage mocha test/*.test.mjs"
+  "test": "mocha",
+  "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
@@ -31,11 +30,12 @@
     "report-dir": "coverage",
     "all": true,
     "include": [
-      "test/**/*.js",
-      "test/**/*.mjs"
+      "test/**/*.js"
     ],
     "exclude": [
       "node_modules/**/*.js"
     ]
   }
 }
+
+

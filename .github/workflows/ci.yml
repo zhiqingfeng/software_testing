@@ -1,35 +1,41 @@
-name: Node.js CI
+name: CI with Coverage
 
 on:
   push:
     branches:
-      - main
+      - main  # or the branch you want to trigger on
   pull_request:
     branches:
-      - main
+      - main  # or the branch you want to trigger on
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest  # You can use macOS or Windows here if necessary
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js (you can specify the version you need)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.9.0'  # Use the appropriate Node.js version
-          cache: 'npm'
+          node-version: '22.9.0'  # Specify your desired Node.js version
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests with coverage
+      # Step 4: Run tests and generate coverage with nyc
+      - name: Run tests with nyc
         run: |
-          npx nyc --reporter=lcov --report-dir=coverage mocha --loader ts-node/register --require ts-node/register test/**/*.test.mjs
+          npx nyc --reporter=lcov --report-dir=coverage mocha test/**/*.js
 
-      - name: Upload coverage to Codecov (or other service)
-        uses: codecov/codecov-action@v3
-        with:
-          file: coverage/lcov-report/lcov-report.json  # Adjust based on your coverage setup
+      # Step 5: Upload coverage to Coveralls
+      - name: Upload coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}  # Reference to GitHub secret
+        run: |
+          npm install coveralls
+          cat coverage/lcov-report/index.html | npx coveralls
 
