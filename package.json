@@ -6,9 +6,9 @@
   "directories": {
     "test": "test"
   },
-"scripts": {
-  "test": "mocha",
-  "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  "scripts": {
+    "test": "mocha",
+    "coveralls": "cat coverage/lcov-report/lcov-report.html | coveralls"
   },
   "keywords": [],
   "author": "",
@@ -25,18 +25,8 @@
     "nyc": "^17.1.0",
     "ts-node": "^10.9.2"
   },
-  "nyc": {
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "report-dir": "coverage",
-    "all": true,
-    "include": [
-      "test/**/*.js"
-    ],
-    "exclude": [
-      "node_modules/**/*.js"
-    ]
-  }
+"nyc": {
+  "reporter": ["text", "lcov"],
+  "all": true
+}
 }
