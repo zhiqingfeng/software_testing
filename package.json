@@ -6,9 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "nyc mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+"scripts": {
+  "test": "mocha",
+  "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "",
