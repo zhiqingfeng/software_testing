@@ -4,7 +4,7 @@ import toNumber from "../src/toNumber.js";
 describe("toNumber.js", () => {
      // Test Case 1: Convert a string input to a number.
     it("should return NaN for non-numeric string input", () => {
-        const result = toNumber([]);
+        const result = toNumber(["test"]);
         expect(result).to.be.NaN;
     });
 
