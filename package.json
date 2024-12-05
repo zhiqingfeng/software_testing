@@ -6,11 +6,10 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "mocha --reporter mochawesome",
-    "coverage": "nyc --reporter=lcov mocha",
-    "coveralls": "nyc --reporter=lcov mocha && coveralls < coverage/lcov.info"
-},
+"scripts": {
+  "test": "mocha",
+  "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
