@@ -7,16 +7,18 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --reporter mochawesome"
+     "test": "mocha --reporter mochawesome",
+  "coverage": "nyc --reporter=lcov mocha && coveralls < coverage/lcov.info"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",  
+  "type": "module",
   "devDependencies": {
     "chai": "^5.1.2",
     "coveralls": "^3.1.1",
     "mocha": "^11.0.1",
-    "mochawesome": "^7.1.3"
+    "mochawesome": "^7.1.3",
+    "nyc": "^17.1.0"
   }
 }
