@@ -1,10 +1,8 @@
 name: Test and Coverage Reporting
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+on: [push, pull_request]
+env:
+  CI: true
 
 jobs:
   coverage:
@@ -26,12 +24,22 @@ jobs:
         run: npm install
 
       # Run tests and generate coverage
-      - name: Run tests and coverage
-        run: |
-          npm run coverage
+      - name: Run tests
+        run: npm run coverage
 
-      # Send coverage to Coveralls
-      - name: Report to Coveralls
-        run: npm run coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN=IHy6KWIhTYOsv0xIA1Dr6otWVud3HNEQ0}}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ${{matrix.os}}-node-${{ matrix.node }}
+          parallel: true
+
+  finish:
+    needs: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
