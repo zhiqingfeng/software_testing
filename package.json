@@ -7,9 +7,10 @@
     "test": "test"
   },
   "scripts": {
-  "test": "mocha",
-  "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
+    "test": "mocha --reporter mochawesome",
+    "coverage": "nyc --reporter=lcov mocha",
+    "coveralls": "nyc --reporter=lcov mocha && coveralls < coverage/lcov.info"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
