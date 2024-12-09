@@ -39,8 +39,7 @@
     "functions": 0,
     "lines": 0,
     "include": [
-     "src/**/*.js",
-     "test/**/*.js" 
+     "src/**/*.js" 
     ]
   }
 }
